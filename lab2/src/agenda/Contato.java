@@ -6,10 +6,11 @@ import java.util.List;
 public class Contato {
 		
 	private String nome;
-	private List<String> telefones,emails;
+	private List<String>emails;
+	private List<NumeroDeTelefone> telefones;
 	
 	
-	public Contato(String nome, ArrayList<String> telefones,ArrayList<String> emails) {
+	public Contato(String nome, ArrayList<NumeroDeTelefone> telefones,ArrayList<String> emails) {
 		this.nome=nome;
 		this.telefones=telefones;
 		this.emails=emails;
@@ -26,12 +27,12 @@ public class Contato {
 	}
 
 
-	public List<String> getTelefones() {
+	public List<NumeroDeTelefone> getTelefones() {
 		return telefones;
 	}
 
 
-	public void setTelefones(List<String> telefones) {
+	public void setTelefones(List<NumeroDeTelefone> telefones) {
 		this.telefones = telefones;
 	}
 

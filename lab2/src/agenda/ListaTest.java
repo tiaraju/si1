@@ -1,7 +1,6 @@
 package agenda;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +20,7 @@ public class ListaTest {
 	public void testCadastraNovoContato() {
 		
 		Assert.assertEquals(lista.getTotalDeContatos(), 0);
-		lista.addContato("Joao",new ArrayList<String>(),new ArrayList<String>());
+		lista.addContato("Joao",new ArrayList<NumeroDeTelefone>(),new ArrayList<String>());
 		Assert.assertFalse(lista.getTotalDeContatos() == 0);
 	}
 	
