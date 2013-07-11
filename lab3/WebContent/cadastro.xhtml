@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- aqui usaremos as tags do JSF -->
+
+<h:head>
+	<title>Cadastrar Nova Tarefa</title>
+</h:head>
+<h:body>
+	<h:form>
+
+		<center>
+			<h2>Cadastrar Nova Tarefa</h2>
+		</center>
+		<br></br>
+		<h3>Entre com os dados abaixo</h3>
+		<table>
+			<tr>
+				<td>Nome:*</td>
+				<td><h:inputText id="textNome" required="true"
+						autocomplete="true" title="Infome o nome da nova tarefa"
+						value="#{tasklistbean.name}" /></td>
+			</tr>
+			<tr>
+				<td>Descrição:</td>
+				<td><h:inputText id="textDescription" autocomplete="true"
+						title="Infome a descrição da tarefa"
+						value="#{tasklistbean.description}" /></td>
+			</tr>
+
+			<tr>
+				<td>Data:(dd/mm/yyyy)</td>
+				<td><h:inputText styleClass="campoTexto" id="periodoInicial"
+						value="#{tasklistbean.date}">
+						<f:convertDateTime type="date" pattern="dd/mm/yyyy" />
+					</h:inputText></td>
+			</tr>
+
+
+		</table>
+		<p>
+			<h:commandButton value="Inserir" action="#{tasklistbean.addTask}" />
+		</p>
+
+		<h:commandButton value="Voltar" action="index.xhtml" />
+	</h:form>
+</h:body>
+</html>

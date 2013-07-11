@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- aqui usaremos as tags do JSF -->
+
+<h:head>
+	<title>Lab03 - Task List</title>
+</h:head>
+
+<h:body>
+
+	<h:outputText value="Task List" />
+	<h:form id="tasklist">
+		<p:dataTable var="task" value="#{tasklistbean.pendingTasks}"
+			paginator="true" rows="15">
+
+			<p:column sortBy="#{task.name}" headerText="Nome">
+				<h:outputText value="#{task.name}" />
+			</p:column>
+
+			<p:column headerText="Descricao">
+				<h:outputText value="#{task.description}" />
+			</p:column>
+			
+			<p:column headerText="Data">
+				<h:outputText value="#{task.date}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+
+		</p:dataTable>
+
+		<h:commandButton value="Cadastrar" action="cadastro.xhtml" />
+		<h:commandButton value="Buscar" action="cadastro.xhtml" />
+	</h:form>
+</h:body>
+
+</html>
