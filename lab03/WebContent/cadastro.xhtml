@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="Cadastro">Editar</ui:insert></title>
+</h:head>
+<body bgcolor="#F0F0F0">
+	<center>
+
+		<h:form>
+
+			<h:head>
+			</h:head>
+			<p:panelGrid columns="2">
+
+				<f:facet name="header"> Adicionar Nova Tarefa </f:facet>
+
+				<h:outputLabel for="firstname" value="Nome:" />
+				<p:inputText id="firstname" value="#{taskbean.nome}"
+					label="Firstname" />
+
+				<h:outputLabel for="surname" value="Descricao:" />
+				<p:inputTextarea id="surname" rows="6" cols="20"
+					value="#{taskbean.descricao}"
+					completeMethod="#{autoCompleteBean.completeArea}" queryDelay="750"
+					minQueryLength="4" label="Surname" />
+
+				<h:outputLabel for="dataConclusao" value="Data da Conclusao:" />
+				<p:inputMask id="dataConclusao" value="#{taskbean.dataConclusao}"
+					mask="99/99/9999" label="DataConclusao" />
+
+				<h:outputLabel for="horaConclusao" value="Hora da Conclusao:" />
+				<p:inputMask id="horaConclusao" value="#{taskbean.horaConclusao}"
+					mask="99:99" label="HoraConclusao" />
+
+
+				<f:facet name="footer">
+					<h:commandButton value="Confirmar  "
+						action="#{taskbean.addTask}" style="margin:0" />
+					<h:commandButton value="Voltar" action="#{taskbean.voltar}"
+						style="margin:0" />
+				</f:facet>
+			</p:panelGrid>
+			<p:growl id="growl" showDetail="true" sticky="true" life="5" />
+
+		</h:form>
+	</center>
+</body>
+</html>
