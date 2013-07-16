@@ -4,10 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.naming.InvalidNameException;
-
-import exceptions.*;
 /**
  * 
  * @author tiaraju
@@ -25,11 +21,9 @@ public class Task implements Comparable<Task> {
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 	private Hour criationTime;
 
-	public Task(String nome) throws NumberFormatException,
-			InvalidHourException, InvalidMinuteException,
-			InvalidDayException, InvalidMonthException, InvalidYearException, InvalidNameException {
+	public Task(String nome) throws NumberFormatException, IllegalArgumentException {
 		if(nome == null || nome.equals("")){
-			throw new InvalidNameException();
+			throw new IllegalArgumentException();
 		}
 		this.date=new Date();
 		this.name = nome;
@@ -61,8 +55,7 @@ public class Task implements Comparable<Task> {
 	public Data getDataCriacao() {
 		return criationDate;
 	}
-	private Data getSystemHour(String data) throws NumberFormatException,
-	InvalidDayException, InvalidMonthException, InvalidYearException {
+	private Data getSystemHour(String data) throws NumberFormatException,IllegalArgumentException {
 		return new Data(Integer.parseInt(data.substring(0, 2)),
 				Integer.parseInt(data.substring(3, 5)), Integer.parseInt(data
 						.substring(6, 10)));
@@ -99,15 +92,15 @@ public class Task implements Comparable<Task> {
 		return this.getNome().equals((task).getNome());
 	}
 	
-	public void setDataConclusao(Data dataConclusao) throws InvalidDateException {
+	public void setDataConclusao(Data dataConclusao) throws IllegalArgumentException {
 		if (dataConclusao != null &&!dataConclusao.equals(new Data())) {
 			if (this.getDataCriacao().compareTo(dataConclusao) == 0) {
 				if (this.getHoraConclusao().compareTo(this.getHoraCriacao()) < 0) {
-					throw new InvalidDateException();
+					throw new IllegalArgumentException();
 				}
 			}
 			if (this.getDataCriacao().compareTo(dataConclusao) > 0) {
-				throw new InvalidDateException();
+				throw new IllegalArgumentException();
 			}
 		}
 		this.conclusionDate = dataConclusao;

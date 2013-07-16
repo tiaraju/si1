@@ -8,10 +8,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.InvalidNameException;
 
-import tasklist.*;
-import exceptions.*;
+import tasklist.Data;
+import tasklist.DateConclusion;
+import tasklist.DateCriation;
+import tasklist.Hour;
+import tasklist.Task;
 /**
  * 
  * @author tiaraju
@@ -33,7 +35,7 @@ public class TaskBean implements Serializable {
 	private boolean status;
 	private Task task;
 
-	public TaskBean() throws NumberFormatException, InvalidHourException, InvalidMinuteException, InvalidDayException, InvalidMonthException, InvalidYearException {
+	public TaskBean() throws IllegalArgumentException {
 		this.controller = new Controller();
 	}
 
@@ -117,7 +119,7 @@ public class TaskBean implements Serializable {
 		return "cadastro.xhtml";
 	}
 
-	public void addTask() throws NumberFormatException,InvalidDayException, InvalidMonthException, InvalidYearException,InvalidHourException, InvalidMinuteException, InvalidNameException, InvalidDateException {
+	public void addTask()throws IllegalArgumentException{
 
 		if (!validateNome()) {
 			ExceptionThrower("Eh necessario dar um nome a tarefa");
@@ -269,7 +271,7 @@ public class TaskBean implements Serializable {
 		this.controller.ordenaIncompletas(this.getComparador());
 	}
 
-	private Data getConclusionDate(String conclusiondate)throws NumberFormatException, InvalidDayException,InvalidMonthException, InvalidYearException {
+	private Data getConclusionDate(String conclusiondate)throws IllegalArgumentException {
 		int day,month,year;
 		try{
 			day = Integer.parseInt(conclusiondate.substring(0, 2));
@@ -282,9 +284,7 @@ public class TaskBean implements Serializable {
 		return new Data(day,month,year);
 	}
 
-	private Hour getConclusionTime(String conclusionTime)
-			throws NumberFormatException, InvalidHourException,
-			InvalidMinuteException {
+	private Hour getConclusionTime(String conclusionTime) throws NumberFormatException, IllegalArgumentException {
 		return new Hour(Integer.parseInt(conclusionTime.substring(0, 2)),
 				Integer.parseInt(conclusionTime.substring(3, 5)));
 	}

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import exceptions.*;
 import tasklist.Data;
 import tasklist.Task;
 /**
@@ -124,15 +123,11 @@ public class Controller {
 		this.getTarefas().remove(Task);
 	}
 
-	public void editTarefa(Task oldTask, Task newTask)
-			throws InvalidDateException, InvalidNameException,
-			NumberFormatException, InvalidHourException,
-			InvalidMinuteException, InvalidDayException,
-			InvalidMonthException, InvalidYearException {
+	public void editTarefa(Task oldTask, Task newTask) throws IllegalArgumentException{
 
 		if (this.getTarefas().contains(newTask)) {
 			if (!oldTask.getNome().equals(newTask.getNome())) {
-				throw new InvalidNameException();
+				throw new IllegalArgumentException("nome errado");
 			}
 		}
 		for (int i = 0; i < this.getTarefas().size(); i++) {

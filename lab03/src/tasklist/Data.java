@@ -1,7 +1,5 @@
 package tasklist;
 
-import exceptions.*;
-
 /**
  * 
  * @author tiaraju
@@ -13,24 +11,24 @@ public class Data implements Comparable<Data> {
 	private int year;
 	private int month;
 
-	public Data(int day, int month, int year) throws InvalidDayException,InvalidMonthException, InvalidYearException {
+	public Data(int day, int month, int year) throws IllegalArgumentException {
 		if (day < 1 || day > 31)
-			throw new InvalidDayException();
+			throw new IllegalArgumentException();
 		if (month == 2 && day > 29)
-			throw new InvalidMonthException();
+			throw new IllegalArgumentException();
 		if (month == 2 && day == 29) {
 			if (!(year % 4 == 0)) {
-				throw new InvalidYearException();
+				throw new IllegalArgumentException();
 			} else {
 				if ((year % 100 == 0))
-					throw new InvalidYearException();
+					throw new IllegalArgumentException();
 			}
 		}
 		if(month>12 || month <0){
-			throw new InvalidMonthException();
+			throw new IllegalArgumentException();
 		}
 		if (day == 31 && (month == 11 || month == 9|| month == 6 || month == 4 || month == 2)) {
-			throw new InvalidMonthException();
+			throw new IllegalArgumentException();
 		}		
 
 		this.day = day;
@@ -39,11 +37,11 @@ public class Data implements Comparable<Data> {
 	}
 
 
-	public void setAno(int ano) throws InvalidYearException {
+	public void setAno(int ano) throws IllegalArgumentException {
 		if (ano > 1900) {
 			this.year = ano;
 		} else {
-			throw new InvalidYearException();
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -54,11 +52,11 @@ public class Data implements Comparable<Data> {
 		return day;
 	}
 
-	public void setDia(int dia) throws InvalidDayException {
+	public void setDia(int dia) throws IllegalArgumentException {
 		if (dia >= 1 && dia <= 31) {
 			this.day = dia;
 		} else {
-			throw new InvalidDayException();
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -69,11 +67,11 @@ public class Data implements Comparable<Data> {
 		return month;
 	}
 
-	public void setMes(int month) throws InvalidMonthException {
+	public void setMes(int month) throws IllegalArgumentException {
 		if (month >= 1 && month <= 12) {
 			this.month = month;
 		} else {
-			throw new InvalidMonthException();
+			throw new IllegalArgumentException();
 		}
 	}
 
