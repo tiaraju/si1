@@ -106,4 +106,25 @@
 			</arg>
 		</exec>
 	</target>
+	
+
+	<target name="all" >
+			<echo> Gerando o .jar do projeto.</echo>
+			<jar jarfile="${dist}/Hello.jar" basedir="${build}">
+				<!-- Tornando o jar executável -->
+				<manifest>
+					<attribute name="Main-Class" value="main.TaskList" />
+				</manifest>
+			</jar>
+		</target>
+
+		<!-- target all - target responsável por iniciar o processo default e executar 
+			a aplicação. -->
+
+		<target name="executa" depends="all">
+			<echo> Executa o projeto.</echo>
+			<java jar="${dist}/Hello.jar" fork="true" />
+		</target>
+
+
 </project>

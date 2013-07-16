@@ -19,7 +19,7 @@ public class TaskList{
 	private static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		System.out.println("Task List \n");
+		System.out.println("Bem vindo ao sistema de Task List- LAB03 da Disciplina de SI 1 - CC - UFCG \n");
 		while (true) {
 			System.out.println("O que deseja? \n "
 					+ "1-Cadastrar uma tarefa \n "
