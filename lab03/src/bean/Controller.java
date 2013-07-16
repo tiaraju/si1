@@ -78,7 +78,7 @@ public class Controller {
 			Task task2 = new Task("Consulta");
 			Task task3 = new Task("Aula");
 			Task task4 = new Task("Appointment");
-			Task task5 = new Task("Nothing");
+			Task task5 = new Task("Party");
 			task1.setDescricao("reuniao do projeto");
 			task2.setDescricao("consulta no dentista");
 			task3.setDescricao("aula de si1");

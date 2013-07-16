@@ -38,9 +38,7 @@ public class Task implements Comparable<Task> {
 		this.conclusionDate = new Data();
 		this.conclusionTime = new Hour();
 		this.description = "";
-		this.criationTime = new Hour(Integer.parseInt(this.dateFormat.format(
-				this.date).substring(0, 2)), Integer.parseInt(this.dateFormat
-				.format(this.date).substring(3, 5)));
+		this.criationTime = new Hour(Integer.parseInt(this.dateFormat.format(this.date).substring(0, 2)), Integer.parseInt(this.dateFormat.format(this.date).substring(3, 5)));
 	}
 
 
@@ -102,14 +100,14 @@ public class Task implements Comparable<Task> {
 	}
 	
 	public void setDataConclusao(Data dataConclusao) throws InvalidDateException {
-		if (!dataConclusao.equals(new Data())) {
+		if (dataConclusao != null &&!dataConclusao.equals(new Data())) {
 			if (this.getDataCriacao().compareTo(dataConclusao) == 0) {
 				if (this.getHoraConclusao().compareTo(this.getHoraCriacao()) < 0) {
 					throw new InvalidDateException();
 				}
-				if (this.getDataCriacao().compareTo(dataConclusao) > 0) {
-					throw new InvalidDateException();
-				}
+			}
+			if (this.getDataCriacao().compareTo(dataConclusao) > 0) {
+				throw new InvalidDateException();
 			}
 		}
 		this.conclusionDate = dataConclusao;

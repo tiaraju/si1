@@ -37,6 +37,17 @@ public class TestData {
 		Assert.assertTrue((data2.getAno()>0));
 	
 	}
+	
+	@Test
+	public void TestCompare()throws Exception{
+		Assert.assertTrue(data2.compareTo(data1)>0);
+		data1=new Data(10,10,2014);
+		data2=new Data(10,10,2013);
+		Assert.assertTrue(data1.compareTo(data2)>0);
+		data1.setAno(2012);
+		Assert.assertTrue(data2.compareTo(data1)>0);
+		data1 = new Data(04,10,2014);
+		}
 
 
 }

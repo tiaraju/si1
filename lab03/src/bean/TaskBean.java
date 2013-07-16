@@ -32,79 +32,79 @@ public class TaskBean implements Serializable {
 	private String ordenationWay;
 	private boolean status;
 	private Task task;
-	
+
 	public TaskBean() throws NumberFormatException, InvalidHourException, InvalidMinuteException, InvalidDayException, InvalidMonthException, InvalidYearException {
 		this.controller = new Controller();
 	}
-	
+
 	public boolean getStatus() {
 		return status;
 	}
-	
+
 	public Task getTarefa() {
 		return task;
 	}
-	
+
 	public void setTarefa(Task Task) {
 		this.task = Task;
 	}
-	
+
 	public String getOrdenacao() {
 		return ordenationWay;
 	}
-	
+
 	public void setOrdenacao(String ordenacao) {
 		this.ordenationWay = ordenacao;
 	}
-	
+
 	public String getHoraConclusao() {
 		return conclusionTime;
 	}
-	
+
 	public void setHoraConclusao(String horaConclusao) {
 		this.conclusionTime = horaConclusao;
 	}
-	
+
 	public Comparator<Task> getComparador() {
 		return comparator;
 	}
-	
+
 	public void setComparador(Comparator<Task> comparador) {
 		this.comparator = comparador;
 	}
-	
+
 	public Controller getController() {
 		return controller;
 	}
-	
+
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
-	
+
 	public String getDataConclusao() {
 		return conclusionDate;
 	}
-	
+
 	public void setDataConclusao(String dataConclusao) {
 		this.conclusionDate = dataConclusao;
 	}
-	
+
 	public String getNome() {
 		return name;
 	}
-	
+
 	public void setNome(String nome) {
 		this.name = nome;
 	}
-	
+
 	public String getDescricao() {
 		return description;
 	}
-	
+
 	public void setDescricao(String descricao) {
 		this.description = descricao;
 	}
-	
+
 	public List<Task> getTarefas() {
 		return controller.getTarefas();
 	}
@@ -112,17 +112,15 @@ public class TaskBean implements Serializable {
 	public String voltar() {
 		return "index.xhtml";
 	}
-	
+
 	public String addTarefa() {
 		return "cadastro.xhtml";
 	}
-	
-	public void addTask() throws NumberFormatException,
-			InvalidDayException, InvalidMonthException, InvalidYearException,
-			InvalidHourException, InvalidMinuteException, InvalidNameException, InvalidDateException {
+
+	public void addTask() throws NumberFormatException,InvalidDayException, InvalidMonthException, InvalidYearException,InvalidHourException, InvalidMinuteException, InvalidNameException, InvalidDateException {
 
 		if (!validateNome()) {
-			msgUsuario("Eh necessario dar um nome a tarefa");
+			ExceptionThrower("Eh necessario dar um nome a tarefa");
 			return;
 		}
 		Task Task = new Task(this.getNome());
@@ -132,11 +130,8 @@ public class TaskBean implements Serializable {
 			try {
 				Data data = getConclusionDate(this.getDataConclusao());
 				Task.setDataConclusao(data);
-				if(task.getDataCriacao()!= null &&  task.getDataConclusao().compareTo(task.getDataCriacao())<0){
-					throw new InvalidDateException();
-				}
 			} catch (Exception e) {
-				msgUsuario("Data invalida");
+				ExceptionThrower("Data Invalid");
 				return;
 			}
 		}
@@ -146,14 +141,14 @@ public class TaskBean implements Serializable {
 				Hour hora = getConclusionTime(this.getHoraConclusao());
 				Task.setHoraConclusao(hora);
 			} catch (Exception e) {
-				msgUsuario("Hora invalida!");
+				ExceptionThrower("Hora Invalid!");
 				return;
 			}
 		}
 		if (!this.controller.getTarefas().contains(Task)) {
 			this.controller.adicionaTarefa(Task);
 		} else {
-			msgUsuario("Nome da tarefa Invalido!");
+			ExceptionThrower("Nome da tarefa Invalido!");
 			return;
 		}
 		clearSpaces();
@@ -161,24 +156,24 @@ public class TaskBean implements Serializable {
 
 	public void setStatus() {
 		if (this.task == null) {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return;
 		} else if (this.task != null && this.getTarefa().getStatus() == false) {
 			this.task.setStatus(true);
 			this.controller.addTarefaCompleta(this.getTarefa());
 			this.controller.removeTarefaIncompleta(this.getTarefa());
 		} else if (this.getTarefa().getStatus() == true) {
-			msgUsuario("operacao invalida");
+			ExceptionThrower("operacao Invalid");
 			return;
 		} else {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return;
 		}
 	}
-	
+
 	public void removeTask() {
 		if (this.task == null) {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return;
 		} else {
 			this.getController().removeTarefa(task);
@@ -188,7 +183,7 @@ public class TaskBean implements Serializable {
 	public String editTask() {
 		System.out.println(this.getTarefa());
 		if (this.getTarefa() == null) {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return "";
 		}
 		return "editor.xhtml";
@@ -203,14 +198,10 @@ public class TaskBean implements Serializable {
 			newTask.setStatus(this.getTarefa().getStatus());
 			if (!this.getDataConclusao().isEmpty()) {
 				try {
-					Data data = new Data(Integer.parseInt(this
-							.getDataConclusao().substring(0, 2)),
-							Integer.parseInt(this.getDataConclusao().substring(
-									3, 5)), Integer.parseInt(this
-									.getDataConclusao().substring(6, 10)));
+					Data data = new Data(Integer.parseInt(this.getDataConclusao().substring(0, 2)),Integer.parseInt(this.getDataConclusao().substring(3, 5)), Integer.parseInt(this.getDataConclusao().substring(6, 10)));
 					newTask.setDataConclusao(data);
 				} catch (Exception e) {
-					msgUsuario("Data Invalida");
+					ExceptionThrower("Data Invalid");
 					return;
 				}
 			} else {
@@ -225,7 +216,7 @@ public class TaskBean implements Serializable {
 									3, 5)));
 					task.setHoraConclusao(hora);
 				} catch (Exception e) {
-					msgUsuario("Hora Invalida");
+					ExceptionThrower("Hora Invalid");
 					return;
 
 				}
@@ -236,7 +227,7 @@ public class TaskBean implements Serializable {
 			newTask.setDescricao(this.getDescricao());
 			this.getController().editTarefa(this.getTarefa(), newTask);
 		} catch (Exception e) {
-			msgUsuario("Nome Invalido");
+			ExceptionThrower("Nome Invalido");
 			return;
 		}
 
@@ -244,7 +235,7 @@ public class TaskBean implements Serializable {
 
 	public void sort() {
 		if (this.getOrdenacao().equals("")) {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return;
 		} else if (this.getOrdenacao().equals("dataCriacao")) {
 			this.setComparador(new DateCriation());
@@ -256,7 +247,7 @@ public class TaskBean implements Serializable {
 
 	public void sortCompletedTasks() {
 		if (this.getOrdenacao().equals("")) {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return;
 		} else if (this.getOrdenacao().equals("dataCriacao")) {
 			this.setComparador(new DateCriation());
@@ -268,7 +259,7 @@ public class TaskBean implements Serializable {
 
 	public void sortIncompletedTasks() {
 		if (this.getOrdenacao().equals("")) {
-			msgUsuario("Invalida");
+			ExceptionThrower("Invalid");
 			return;
 		} else if (this.getOrdenacao().equals("dataCriacao")) {
 			this.setComparador(new DateCriation());
@@ -278,12 +269,17 @@ public class TaskBean implements Serializable {
 		this.controller.ordenaIncompletas(this.getComparador());
 	}
 
-	private Data getConclusionDate(String conclusiondate)
-			throws NumberFormatException, InvalidDayException,
-			InvalidMonthException, InvalidYearException {
-		return new Data(Integer.parseInt(conclusiondate.substring(0, 2)),
-				Integer.parseInt(conclusiondate.substring(3, 5)),
-				Integer.parseInt(conclusiondate.substring(6, 10)));
+	private Data getConclusionDate(String conclusiondate)throws NumberFormatException, InvalidDayException,InvalidMonthException, InvalidYearException {
+		int day,month,year;
+		try{
+			day = Integer.parseInt(conclusiondate.substring(0, 2));
+			month = Integer.parseInt(conclusiondate.substring(3, 5));
+			year = Integer.parseInt(conclusiondate.substring(6, 10));
+		}catch (Exception e){
+			ExceptionThrower("data nao criada");
+			return null;
+		}
+		return new Data(day,month,year);
 	}
 
 	private Hour getConclusionTime(String conclusionTime)
@@ -304,9 +300,9 @@ public class TaskBean implements Serializable {
 		return !this.getNome().isEmpty();
 	}
 
-	private void msgUsuario(String string1) {
+	private void ExceptionThrower(String s) {
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(string1));
+		context.addMessage(null, new FacesMessage(s));
 	}
 
 }
