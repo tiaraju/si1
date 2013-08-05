@@ -69,13 +69,13 @@
 				<p:inputText id="newLogin" value="#{agendaBean.newLogin}"
 					label="Login" required="true" />
 
-				<h:outputLabel for="pwd1" value="Password 1: " />
+				<h:outputLabel for="pwd1" value="Password : " />
 				<p:password id="pwd1" value="#{agendaBean.newPassword}" match="pwd2"
 					label="Password 1" required="true">
 					<f:validateLength maximum="20" minimum="6" />
 				</p:password>
 
-				<h:outputLabel for="pwd2" value="Password 2: " />
+				<h:outputLabel for="pwd2" value="Confirme Sua Senha " />
 				<p:password id="pwd2" value="#{agendaBean.newPassword}"
 					label="Confirme sua senha" required="true" />
 			</h:panelGrid>
